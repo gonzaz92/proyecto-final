@@ -2,7 +2,7 @@
 {% block titulo%} Modificar Juego {% endblock %}
 {% block contenido %}
 
-<!-- Prestar aatención a la variable familiar.id -->
+
 <form action="/juegos/actualizar/{{ Juegos.id }}" method="post"> 
     {% csrf_token %}
     {{ form.as_p }}

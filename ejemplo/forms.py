@@ -1,5 +1,5 @@
 from django import forms
-from ejemplo.models import Familiar, Juegos
+from ejemplo.models import Familiar, Juegos, Mascotas
 
 class Buscar(forms.Form):
     nombre = forms.CharField(max_length=100,
@@ -15,3 +15,8 @@ class JuegosForm(forms.ModelForm):
     class Meta:
         model = Juegos
         fields = ['nombre', 'tipo']
+
+class MascotasForm(forms.ModelForm):
+    class Meta:
+        model = Mascotas
+        fields = ['nombre', 'especie', 'raza']

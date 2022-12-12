@@ -1,0 +1,17 @@
+{% extends 'Mascotas/base_mascota.html' %}
+{% block contenido %}
+
+Lista de Mascotas
+<a href='/mascotas/alta'>Nueva Mascota</a>
+
+{% for pet in lista_mascotas %}
+<ul>
+    <li>
+        Id: {{pet.id}}, Nombre: {{pet.nombre}}, Especie: {{pet.especie}}, Raza: {{pet.raza}}
+        
+        <a href='actualizar/{{ pet.id }}'>Actualizar</a>
+        <a href='borrar/{{ pet.id }}'>Borrar</a>
+    </li>
+</ul>
+{% endfor %}
+{%endblock %}

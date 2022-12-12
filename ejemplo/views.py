@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from ejemplo.models import Familiar, Juegos, Mascota
-from ejemplo.forms import Buscar, FamiliarForm, JuegosForm
+from ejemplo.models import Familiar, Juegos, Mascotas
+from ejemplo.forms import Buscar, FamiliarForm, JuegosForm, MascotasForm
 from django.views import View
 
 def index(request):
@@ -123,7 +123,7 @@ class Altajuego(View):
 
     def post (self, request):
         form = self.form_class(request.POST)
-        if form. is_valid():
+        if form.is_valid():
             form.save()
             msg_exito = f"El juego se cargo con éxito {form.cleaned_data.get('nombre')}"
             form = self.form_class(initial=self.initial)
@@ -137,13 +137,11 @@ class ActualizarJuego(View):
   template_name = 'juegos/actualizar_juego.html'
   initial = {'nombre':'', 'tipo':''}
   
-  # prestar atención ahora el method get recibe un parametro pk == primaryKey == identificador único
   def get(self, request, pk): 
       juego = get_object_or_404(Juegos, pk=pk)
       form = self.form_class(instance=juego)
       return render(request, self.template_name, {'form':form,'juego': juego})
 
-  # prestar atención ahora el method post recibe un parametro pk == primaryKey == identificador único
   def post(self, request, pk): 
       juego = get_object_or_404(Juegos, pk=pk)
       form = self.form_class(request.POST ,instance=juego)
@@ -165,3 +163,59 @@ class BorrarJuego(View):
         juego.delete()
         juego = Juegos.objects.all()
         return render(request, self.template_name, {'lista_juegos': juego})
+
+def mostrar_mascotas(request):
+    lista_mascotas = Mascotas.objects.all()
+    return render(request, 'Mascotas/mascotas.html', {'lista_mascotas': lista_mascotas})
+
+class AltaMascota(View):
+    form_class = MascotasForm
+    template_name = 'Mascotas/alta_mascotas.html'
+    initial = {'nombre':'', 'especie':'', 'raza':''}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            msg_exito = f"La Mascota se cargo con éxito {form.cleaned_data.get('nombre')}"
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'fomr':form,
+                                                        'msg_exito': msg_exito})
+        
+        return render (request, self.template_name, {'form': form})
+
+class ActualizarMascota(View):
+  form_class = MascotasForm
+  template_name = 'Mascotas/actualizar_mascotas.html'
+  initial = {'nombre':'', 'especie':'', 'raza':''}
+  
+  def get(self, request, pk): 
+      juego = get_object_or_404(Mascotas, pk=pk)
+      form = self.form_class(instance=juego)
+      return render(request, self.template_name, {'form':form,'juego': juego})
+
+  def post(self, request, pk): 
+      juego = get_object_or_404(Mascotas, pk=pk)
+      form = self.form_class(request.POST ,instance=juego)
+      if form.is_valid():
+          form.save()
+          msg_exito = f"se actualizó el juego con éxito {form.cleaned_data.get('nombre')}"
+          form = self.form_class(initial=self.initial)
+          return render(request, self.template_name, {'form':form, 
+                                                      'familiar': juego,
+                                                      'msg_exito': msg_exito})
+      
+      return render(request, self.template_name, {"form": form})
+
+class BorrarMascota(View):
+    template_name = 'Mascotas/mascotas.html'
+
+    def get(self, request, pk):
+        mascota = get_object_or_404(Mascotas, pk=pk)
+        mascota.delete()
+        mascota = Mascotas.objects.all()
+        return render(request, self.template_name, {'lista_mascotas': mascota})

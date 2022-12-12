@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from ejemplo.views import (buscar, index, saludar_a, sumar, mostrar_familiares,
                         BuscarFamiliar, AltaFamiliar,ActualizarFamiliar, BorrarFamiliar,
-                        mostrar_juegos, Altajuego, ActualizarJuego,BorrarJuego)
+                        mostrar_juegos, Altajuego, ActualizarJuego,BorrarJuego,
+                        mostrar_mascotas,AltaMascota, ActualizarMascota, BorrarMascota)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,4 +35,8 @@ urlpatterns = [
     path('juegos/alta', Altajuego.as_view()),
     path('juegos/actualizar/<int:pk>', ActualizarJuego.as_view()),
     path('juegos/borrar/<int:pk>', BorrarJuego.as_view()),
+    path('mascotas/', mostrar_mascotas),
+    path('mascotas/alta', AltaMascota.as_view()),
+    path('mascotas/actualizar/<int:pk>', ActualizarMascota.as_view()),
+    path('mascotas/borrar/<int:pk>', BorrarMascota.as_view()),
     ]
