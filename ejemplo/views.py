@@ -20,16 +20,6 @@ def sumar(request, a, b):
     'resultado': a + b}
     )
 
-def buscar(request):
-    lista_de_nombre = ['Gonzalo', 'Ezequiel', 'Daniel', 'Romero', 'Alvaro']
-    query = request.GET['q']
-    if query in lista_de_nombre:
-        indice_de_resultado = lista_de_nombre.index(query)
-        resultado = lista_de_nombre[indice_de_resultado]
-    else:
-        resultado = 'no hay match'
-    return render(request, 'ejemplo/buscar.html', {'resultado': resultado})
-
 def mostrar_familiares(request):
     lista_familiares = Familiar.objects.all()
     return render(request, 'ejemplo/familiares.html', {'lista_familiares' : lista_familiares})
