@@ -1,0 +1,17 @@
+{% extends 'Juegos/base_juegos.html' %}
+{% block contenido %}
+
+Lista de Juegos
+<a href='/juegos/alta'>Nuevo Juego</a>
+
+{% for juegazo in lista_juegos %}
+<ul>
+    <li>
+        Id: {{juegazo.id}}, Nombre: {{juegazo.nombre}}, Genero: {{juegazo.tipo}}
+        <!-- Esto agrega un link al form de actulización-->
+        <a href='actualizar/{{ juegazo.id }}'>Actualizar</a>
+        <a href='borrar/{{ juegazo.id }}'>Borrar</a>
+    </li>
+</ul>
+{% endfor %}
+{%endblock %}

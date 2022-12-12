@@ -1,0 +1,15 @@
+{% extends 'Juegos/base_juegos.html' %}
+{% block titulo%} Alta de Juego {% endblock %}
+{% block contenido %}
+  
+  <form action="/juegos/alta" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Guardar">
+  </form>
+
+  <h2 style="color:green">{{msg_exito}}</h2>
+
+  <a href='/juegos'>volver a Juegos</a>
+
+{% endblock %}

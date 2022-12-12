@@ -1,0 +1,16 @@
+{% extends 'Juegos/base_juegos.html' %}
+{% block titulo%} Modificar Juego {% endblock %}
+{% block contenido %}
+
+<!-- Prestar aatención a la variable familiar.id -->
+<form action="/juegos/actualizar/{{ Juegos.id }}" method="post"> 
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Actualizar">
+</form>
+
+<h2 style="color:green">{{msg_exito}}</h2>
+
+<a href='/juegos'>Volver a juegos</a>
+
+{% endblock %}
