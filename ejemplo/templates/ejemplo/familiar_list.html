@@ -12,7 +12,7 @@
 {% block buscar %} {% endblock %}
 
 {% for familiar in object_list %}
-    <li>{{familiar.id}} - {{familiar.nombre}}, {{familiar.numero_pasaporte}}</li>
+    <li>{{familiar.id}} - {{familiar.nombre}}, {{familiar.direccion}}, {{familiar.numero_pasaporte}}</li>
 {% endfor %}    
 </ul>
 
