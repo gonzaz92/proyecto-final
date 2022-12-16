@@ -18,7 +18,8 @@ from django.urls import path
 from ejemplo.views import (index, saludar_a, sumar, mostrar_familiares,
                         BuscarFamiliar, AltaFamiliar,ActualizarFamiliar, BorrarFamiliar,
                         mostrar_juegos, Altajuego, ActualizarJuego,BorrarJuego,
-                        mostrar_mascotas,AltaMascota, ActualizarMascota, BorrarMascota)
+                        mostrar_mascotas,AltaMascota, ActualizarMascota, BorrarMascota,
+                        FamiliarDetalle, FamiliarList, FamiliarCrear, FamiliarBorrar, FamiliarActualizar)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,4 +39,9 @@ urlpatterns = [
     path('mascotas/alta', AltaMascota.as_view()),
     path('mascotas/actualizar/<int:pk>', ActualizarMascota.as_view()),
     path('mascotas/borrar/<int:pk>', BorrarMascota.as_view()),
+    path('panel-familia/<int:pk>/detalle', FamiliarDetalle.as_view()),
+    path('panel-familia/',FamiliarList.as_view()),
+    path('panel-familia/crear', FamiliarCrear.as_view()),
+    path('panel-familia/<int:pk>/borrar/', FamiliarBorrar.as_view()),
+    path('panel-familia/<int:pk>/actualizar/', FamiliarActualizar.as_view()),
     ]
