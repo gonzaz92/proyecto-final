@@ -20,7 +20,9 @@ from ejemplo.views import (index, saludar_a, sumar, mostrar_familiares,
                         mostrar_juegos, Altajuego, ActualizarJuego,BorrarJuego,
                         mostrar_mascotas,AltaMascota, ActualizarMascota, BorrarMascota,
                         FamiliarDetalle, FamiliarList, FamiliarCrear, FamiliarBorrar, FamiliarActualizar)
-from ejemplo_dos.views import index, PostList, PostCrear
+from ejemplo_dos.views import (index, PostDetalle, PostList, PostCrear, PostBorrar, PostActualizar,
+                            UserSingUp,UserLogin, UserLogout)
+from django.contrib.admin.views.decorators import staff_member_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -46,6 +48,12 @@ urlpatterns = [
     path('panel-familia/<int:pk>/borrar/', FamiliarBorrar.as_view()),
     path('panel-familia/<int:pk>/actualizar/', FamiliarActualizar.as_view()),
     path('ejemplo-dos/', index, name='ejemplo-dos-index'),
+    path('ejemplo-dos/<int:pk>/detalle/', PostDetalle.as_view(), name='ejemplo-dos-detalle'),
     path('ejemplo-dos/listar/', PostList.as_view(), name='ejemplo-dos-listar'),
-    path('ejemplo-dos/crear/', PostCrear.as_view(), name='ejemplo-dos-crear'),
+    path('ejemplo-dos/crear/', staff_member_required(PostCrear.as_view()), name='ejemplo-dos-crear'),
+    path('ejemplo-dos/<int:pk>/borrar/', staff_member_required(PostBorrar.as_view()), name='ejemplo-dos-borrar'),
+    path('ejemplo-dos/<int:pk>/actualizar/', staff_member_required(PostActualizar.as_view()), name='ejemplo-dos-actualizar'),
+    path('ejemplo-dos/singup/', UserSingUp.as_view(), name='ejemplo-dos-singup'),
+    path('ejemplo-dos/login/', UserLogin.as_view(), name='ejemplo-dos-login'),
+    path('ejemplo-dos/logout/', UserLogout.as_view(), name='ejemplo-dos-logout'),
     ]
