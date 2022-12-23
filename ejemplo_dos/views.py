@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
-from ejemplo_dos.models import Post
+from ejemplo_dos.models import Post, Avatar, Mensaje
 from ejemplo_dos.forms import UsuarioForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 def index(request):
-    return render(request, 'ejemplo_dos/index.html', {})
+    posts = Post.objects.order_by('-publicado_el').all()
+    return render(request, 'ejemplo_dos/index.html', {'posts': posts})
 
 class PostDetalle(DetailView):
     model = Post
@@ -39,3 +41,28 @@ class UserLogin(LoginView):
 
 class UserLogout(LogoutView):
     next_page = reverse_lazy('ejemplo-dos-index')
+
+class AvatarActualizar(UpdateView):
+    model = Avatar
+    fields = ['imagen']
+    success_url = reverse_lazy('ejemplo-dos-listar')
+
+class UserActualizar(UpdateView):
+    model = User
+    fields = ['first_name', 'last_name', 'email']
+    success_url = reverse_lazy('ejemplo-dos-listar')
+
+class MensajeDetail(LoginRequiredMixin, DetailView):
+    model = Mensaje
+
+class MensajeListar(LoginRequiredMixin, ListView):
+    model = Mensaje
+
+class MensajeCrear(LoginRequiredMixin, CreateView):
+    model = Mensaje
+    success_url = reverse_lazy('ejemplo-dos-mensajes-crear')
+    fields = ['nombre', 'email', 'texto']
+
+class MensajeBorrar(LoginRequiredMixin,DeleteView):
+    model = Mensaje
+    success_url = reverse_lazy('ejemplo-dos-mensajes-listar')

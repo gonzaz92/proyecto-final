@@ -6,6 +6,9 @@
     <h3>
         <a href="{% url 'ejemplo-dos-crear' %}">Nuevo Post</a>
     </h3>
+    <h5><a href="{% url 'ejemplo-dos-avatares-actualizar' user.id %}">Cambiar Avatar</a></h5>
+    <h5><a href="{% url 'ejemplo-dos-users-actualizar' user.id %}">Actualizar Datos</a></h5>
+    <h5><a href="{% url 'ejemplo-dos-mensajes-listar' %}">Mensajes</a></h5>
 </li>
 {% endif %}
 <ul>
